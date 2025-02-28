@@ -24,3 +24,57 @@ Total                    8800
 
 O Sistema Operacional mais votado foi o Unix, com 3500 votos, correspondendo a 40% dos votos.
 """
+def calcular_percentual(votos, total_votos):
+    return (votos / total_votos) * 100
+
+def main():
+    # Inicializa o vetor de votos para cada opção
+    votos = [0] * 6  # Cada índice corresponde a uma opção: 1-6
+    
+    while True:
+        try:
+            # Solicita o voto (número do sistema operacional)
+            voto = int(input("Digite o número do Sistema Operacional (0 para encerrar): "))
+            
+            # Se o número for 0, encerra a coleta de dados
+            if voto == 0:
+                break
+            
+            # Verifica se o voto está dentro das opções válidas (1 a 6)
+            if 1 <= voto <= 6:
+                votos[voto - 1] += 1  # Incrementa o voto na opção correspondente
+            else:
+                print("Valor inválido. Por favor, escolha uma opção entre 1 e 6 ou 0 para encerrar.")
+        
+        except ValueError:
+            print("Valor inválido. Por favor, digite um número inteiro.")
+
+    # Calcula o total de votos
+    total_votos = sum(votos)
+    
+    # Nome dos sistemas operacionais
+    sistemas = ["Windows Server", "Unix", "Linux", "Netware", "Mac OS", "Outro"]
+    
+    # Exibe a tabela de resultados
+    print("\nSistema Operacional     Votos   %")
+    print("-------------------     -----   ---")
+    
+    for i in range(6):
+        percentual = calcular_percentual(votos[i], total_votos)
+        print(f"{sistemas[i]:<22}{votos[i]:<7}{percentual:>3.0f}%")
+    
+    print("-------------------     -----")
+    print(f"Total                    {total_votos}")
+
+    # Encontra o vencedor
+    vencedor_index = votos.index(max(votos))
+    vencedor = sistemas[vencedor_index]
+    vencedor_votos = votos[vencedor_index]
+    vencedor_percentual = calcular_percentual(vencedor_votos, total_votos)
+
+    # Exibe o vencedor
+    print(f"\nO Sistema Operacional mais votado foi o {vencedor}, com {vencedor_votos} votos, correspondendo a {vencedor_percentual:.0f}% dos votos.")
+
+# Chama a função principal
+if __name__ == "__main__":
+    main()

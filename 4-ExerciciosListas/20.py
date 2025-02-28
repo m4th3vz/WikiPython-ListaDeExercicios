@@ -29,3 +29,50 @@ Total gasto com abonos: R$ 1400.00
 Valor mínimo pago a 3 colaboradores
 Maior valor de abono pago: R$ 900.00
 """
+def main():
+    total_funcionarios = 0
+    total_abonos = 0
+    colaboradores_minimo = 0
+    maior_abono = 0
+
+    print("Projeção de Gastos com Abono")
+    print("============================")
+    
+    while True:
+        try:
+            # Solicita o salário do funcionário
+            salario = float(input("Salário: "))
+            
+            # Encerra a entrada quando o salário for zero
+            if salario == 0:
+                break
+            
+            # Calcula o abono: 20% do salário ou 100 reais, o que for maior
+            abono = salario * 0.20
+            if abono < 100:
+                abono = 100
+                colaboradores_minimo += 1
+            
+            # Atualiza os totais
+            total_funcionarios += 1
+            total_abonos += abono
+            
+            # Verifica o maior abono
+            if abono > maior_abono:
+                maior_abono = abono
+
+            # Exibe o salário e o abono de cada colaborador
+            print(f"R$ {salario:8.2f} - R$ {abono:7.2f}")
+        
+        except ValueError:
+            print("Valor inválido! Digite um número válido para o salário.")
+    
+    # Exibe o resumo final
+    print("\nForam processados", total_funcionarios, "colaboradores")
+    print(f"Total gasto com abonos: R$ {total_abonos:8.2f}")
+    print(f"Valor mínimo pago a {colaboradores_minimo} colaboradores")
+    print(f"Maior valor de abono pago: R$ {maior_abono:8.2f}")
+
+# Chama a função principal
+if __name__ == "__main__":
+    main()

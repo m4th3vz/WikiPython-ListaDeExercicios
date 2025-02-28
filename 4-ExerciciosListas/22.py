@@ -11,3 +11,59 @@ Situação                        Quantidade              Percentual
 3- necessita troca do cabo ou conector  15                     15%
 4- quebrado ou inutilizado              15                     15%
 """
+def main():
+    # Dicionário para armazenar os tipos de defeito e suas contagens
+    defeitos = {
+        "necessita da esfera": 0,
+        "necessita de limpeza": 0,
+        "necessita troca do cabo ou conector": 0,
+        "quebrado ou inutilizado": 0
+    }
+    
+    total_mouses = 0  # Contador para o total de mouses
+
+    # Entrada de dados
+    while True:
+        # Lê o número de identificação do mouse
+        id_mouse = int(input("Digite o número de identificação do mouse (0 para encerrar): "))
+        
+        # Verifica se a identificação é 0, o que encerra o programa
+        if id_mouse == 0:
+            break
+        
+        # Lê o tipo de defeito
+        print("Tipos de defeitos:")
+        print("1 - necessita da esfera")
+        print("2 - necessita de limpeza")
+        print("3 - necessita troca do cabo ou conector")
+        print("4 - quebrado ou inutilizado")
+        
+        defeito = int(input("Digite o número correspondente ao defeito: "))
+        
+        # Atualiza a contagem do defeito
+        if defeito == 1:
+            defeitos["necessita da esfera"] += 1
+        elif defeito == 2:
+            defeitos["necessita de limpeza"] += 1
+        elif defeito == 3:
+            defeitos["necessita troca do cabo ou conector"] += 1
+        elif defeito == 4:
+            defeitos["quebrado ou inutilizado"] += 1
+        else:
+            print("Defeito inválido! Tente novamente.")
+            continue
+        
+        # Atualiza o total de mouses
+        total_mouses += 1
+
+    # Exibe o relatório
+    print("\nRelatório:")
+    print(f"Quantidade de mouses: {total_mouses}\n")
+    print(f"{'Situação':<40} {'Quantidade':<15} {'Percentual'}")
+    for situacao, quantidade in defeitos.items():
+        percentual = (quantidade / total_mouses) * 100 if total_mouses > 0 else 0
+        print(f"{situacao:<40} {quantidade:<15} {percentual:.2f}%")
+
+# Chama a função principal
+if __name__ == "__main__":
+    main()

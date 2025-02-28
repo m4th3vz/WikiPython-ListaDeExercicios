@@ -11,3 +11,39 @@ Utilize uma lista para resolver o problema a seguir. Uma empresa paga seus vende
     i.$1000 em diante
 Desafio: Crie ma fórmula para chegar na posição da lista a partir do salário, sem fazer vários ifs aninhados.
 """
+def calcular_salario(vendas_brutas):
+    return 200 + (0.09 * vendas_brutas)
+
+def obter_posicao(salario):
+    return min((int(salario) - 200) // 100, 8)
+
+def main():
+    contadores = [0] * 9  # Lista para contar vendedores em cada faixa salarial
+    
+    while True:
+        try:
+            vendas = input("Digite o valor das vendas brutas do vendedor (-1 para encerrar): ")
+            if vendas == "-1":
+                break
+            
+            vendas = float(vendas)
+            salario = calcular_salario(vendas)
+            posicao = obter_posicao(salario)
+            contadores[posicao] += 1
+        except ValueError:
+            print("Entrada inválida. Digite um número válido.")
+    
+    faixas = [
+        "$200 - $299", "$300 - $399", "$400 - $499", "$500 - $599",
+        "$600 - $699", "$700 - $799", "$800 - $899", "$900 - $999",
+        "$1000 em diante"
+    ]
+    
+    print("\nDistribuição de salários:")
+    for i, faixa in enumerate(faixas):
+        print(f"{faixa}: {contadores[i]} vendedores")
+    
+    print("Programa encerrado. Obrigado por utilizar!")
+
+if __name__ == "__main__":
+    main()

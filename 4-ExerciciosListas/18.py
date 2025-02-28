@@ -29,3 +29,68 @@ Jogador Votos           %
 11              1               12,5%
 O melhor jogador foi o número 9, com 4 votos, correspondendo a 50% do total de votos.
 """
+def calcular_percentual(votos, total_votos):
+    return (votos / total_votos) * 100
+
+def main():
+    # Inicializa o array de votos
+    votos = [0] * 23  # Lista de 23 posições para os jogadores 1 a 23
+
+    while True:
+        try:
+            # Solicita o número do jogador
+            jogador = int(input("Número do jogador (0=fim): "))
+            
+            # Se o número for 0, encerra a votação
+            if jogador == 0:
+                break
+            
+            # Verifica se o número é válido
+            if 1 <= jogador <= 23:
+                votos[jogador - 1] += 1  # Incrementa o voto do jogador
+            else:
+                print("Informe um valor entre 1 e 23 ou 0 para sair!")
+        
+        except ValueError:
+            print("Valor inválido. Por favor, digite um número.")
+
+    # Total de votos computados
+    total_votos = sum(votos)
+    
+    # Exibe o resultado
+    print("\nResultado da votação:")
+    print(f"\nForam computados {total_votos} votos.\n")
+    
+    # Lista para armazenar os jogadores com votos
+    jogadores_com_votos = []
+    
+    for i in range(23):
+        if votos[i] > 0:
+            jogador_num = i + 1
+            percentual = calcular_percentual(votos[i], total_votos)
+            jogadores_com_votos.append((jogador_num, votos[i], percentual))
+    
+    # Ordena os jogadores pelo número
+    jogadores_com_votos.sort(key=lambda x: x[0])
+
+    # Exibe os votos e percentuais
+    for jogador in jogadores_com_votos:
+        print(f"{jogador[0]:<15}{jogador[1]:<10}{jogador[2]:.1f}%")
+    
+    # Encontra o melhor jogador
+    melhor_jogador = max(jogadores_com_votos, key=lambda x: x[1])
+    print(f"\nO melhor jogador foi o número {melhor_jogador[0]}, com {melhor_jogador[1]} votos, correspondendo a {melhor_jogador[2]:.1f}% do total de votos.")
+    
+    # Grava o resultado em um arquivo
+    with open("resultado_votacao.txt", "w") as f:
+        f.write(f"Resultado da votação:\n\n")
+        f.write(f"Foram computados {total_votos} votos.\n\n")
+        for jogador in jogadores_com_votos:
+            f.write(f"Jogador {jogador[0]}: {jogador[1]} votos - {jogador[2]:.1f}%\n")
+        f.write(f"\nO melhor jogador foi o número {melhor_jogador[0]}, com {melhor_jogador[1]} votos, correspondendo a {melhor_jogador[2]:.1f}% do total de votos.\n")
+    
+    print("\nResultado gravado no arquivo 'resultado_votacao.txt'.")
+
+# Chama a função principal
+if __name__ == "__main__":
+    main()
